@@ -89,12 +89,12 @@ internal sealed class Socks4Handler : SocksHandler {
 				RemoteBindIP = IPAddress.Parse(Request[3].ToString() + "." + Request[4].ToString() + "." + Request[5].ToString() + "." + Request[6].ToString());
 				Reply[0] = 0;  //Reply version 0
 				Reply[1] = 90;  //Everything is ok :)
-				Reply[2] = (byte)(Math.Floor(((IPEndPoint)AcceptSocket.LocalEndPoint).Port / 256));  //Port/1
-				Reply[3] = (byte)(((IPEndPoint)AcceptSocket.LocalEndPoint).Port % 256);  //Port/2
-				Reply[4] = (byte)(Math.Floor((LocalIP % 256)));  //IP Address/1
-				Reply[5] = (byte)(Math.Floor((LocalIP % 65536) / 256));  //IP Address/2
-				Reply[6] = (byte)(Math.Floor((LocalIP % 16777216) / 65536));  //IP Address/3
-				Reply[7] = (byte)(Math.Floor(LocalIP / 16777216));  //IP Address/4
+				Reply[2] = (byte)(Math.Floor(((IPEndPoint)AcceptSocket.LocalEndPoint).Port / 256d));  //Port/1
+				Reply[3] = (byte)(((IPEndPoint)AcceptSocket.LocalEndPoint).Port % 256d);  //Port/2
+				Reply[4] = (byte)(Math.Floor((LocalIP % 256d)));  //IP Address/1
+				Reply[5] = (byte)(Math.Floor((LocalIP % 65536d) / 256d));  //IP Address/2
+				Reply[6] = (byte)(Math.Floor((LocalIP % 16777216d) / 65536));  //IP Address/3
+				Reply[7] = (byte)(Math.Floor(LocalIP / 16777216d));  //IP Address/4
 				Connection.BeginSend(Reply, 0, Reply.Length, SocketFlags.None, new AsyncCallback(this.OnStartAccept), Connection);
 			}
 		} catch {
@@ -116,12 +116,12 @@ internal sealed class Socks4Handler : SocksHandler {
 	protected override void Dispose(byte Value) {
 		byte [] ToSend;
 		try {
-			ToSend = new byte[]{0, Value, (byte)(Math.Floor(((IPEndPoint)RemoteConnection.RemoteEndPoint).Port / 256)),
-		                                   (byte)(((IPEndPoint)RemoteConnection.RemoteEndPoint).Port % 256),
-		                                   (byte)(Math.Floor((((IPEndPoint)RemoteConnection.RemoteEndPoint).Address.Address % 256))),
-		                                   (byte)(Math.Floor((((IPEndPoint)RemoteConnection.RemoteEndPoint).Address.Address % 65536) / 256)),
-		                                   (byte)(Math.Floor((((IPEndPoint)RemoteConnection.RemoteEndPoint).Address.Address % 16777216) / 65536)),
-		                                   (byte)(Math.Floor(((IPEndPoint)RemoteConnection.RemoteEndPoint).Address.Address / 16777216))};
+			ToSend = new byte[]{0, Value, (byte)(Math.Floor(((IPEndPoint)RemoteConnection.RemoteEndPoint).Port / 256d)),
+		                                   (byte)(((IPEndPoint)RemoteConnection.RemoteEndPoint).Port % 256d),
+		                                   (byte)(Math.Floor((((IPEndPoint)RemoteConnection.RemoteEndPoint).Address.Address % 256d))),
+		                                   (byte)(Math.Floor((((IPEndPoint)RemoteConnection.RemoteEndPoint).Address.Address % 65536d) / 256)),
+		                                   (byte)(Math.Floor((((IPEndPoint)RemoteConnection.RemoteEndPoint).Address.Address % 16777216d) / 65536)),
+		                                   (byte)(Math.Floor(((IPEndPoint)RemoteConnection.RemoteEndPoint).Address.Address / 16777216d))};
 		} catch {
 			ToSend = new byte[]{0, 91, 0, 0, 0, 0, 0, 0};
 		}

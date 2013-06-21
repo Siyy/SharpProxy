@@ -51,7 +51,7 @@ internal sealed class FtpDataConnection : Client {
 			ListenSocket.BeginAccept(new AsyncCallback(this.OnPortAccept), ListenSocket);
 			ClientSocket = new Socket(RemoteAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 			ClientSocket.BeginConnect(RemoteAddress, new AsyncCallback(this.OnPortConnected), ClientSocket);
-			return "PORT " + Listener.GetLocalExternalIP().ToString().Replace('.', ',') + "," + Math.Floor(((IPEndPoint)ListenSocket.LocalEndPoint).Port / 256).ToString() + "," + (((IPEndPoint)ListenSocket.LocalEndPoint).Port % 256).ToString() + "\r\n";
+			return "PORT " + Listener.GetLocalExternalIP().ToString().Replace('.', ',') + "," + Math.Floor(((IPEndPoint)ListenSocket.LocalEndPoint).Port / 256d).ToString() + "," + (((IPEndPoint)ListenSocket.LocalEndPoint).Port % 256).ToString() + "\r\n";
 		} catch {
 			Dispose();
 			return "PORT 0,0,0,0,0,0\r\n";
@@ -187,7 +187,7 @@ internal sealed class FtpDataConnection : Client {
 			ListenSocket.Bind(new IPEndPoint(IPAddress.Any, 0));
 			ListenSocket.Listen(1);
 			ListenSocket.BeginAccept(new AsyncCallback(this.OnPasvAccept), ListenSocket);
-			Parent.SendCommand("227 Entering Passive Mode (" + Listener.GetLocalInternalIP().ToString().Replace('.', ',') + "," + Math.Floor(((IPEndPoint)ListenSocket.LocalEndPoint).Port / 256).ToString() + "," + (((IPEndPoint)ListenSocket.LocalEndPoint).Port % 256).ToString() + ").\r\n");
+			Parent.SendCommand("227 Entering Passive Mode (" + Listener.GetLocalInternalIP().ToString().Replace('.', ',') + "," + Math.Floor(((IPEndPoint)ListenSocket.LocalEndPoint).Port / 256d).ToString() + "," + (((IPEndPoint)ListenSocket.LocalEndPoint).Port % 256).ToString() + ").\r\n");
 		} catch {
 			Dispose();
 		}

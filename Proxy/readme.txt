@@ -1,4 +1,4 @@
-
+﻿
 
                Mentalis.org Proxy
                ~~~~~~~~~~~~~~~~~~        (Tuesday, April 30, 2002)
@@ -59,7 +59,7 @@
   (3) License & Contact information
 
        All the code in this source code distribution is copyrighted
-       by The KPD-Team, � 2002. Visit http://www.mentalis.org/ for
+       by The KPD-Team, © 2002. Visit http://www.mentalis.org/ for
        the latest version of this project. E-Mail us at
        info@mentalis.org if you have comments or suggestions for us.
 
